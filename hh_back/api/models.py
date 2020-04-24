@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Company(models.Model):
-    name = models.CharField(max_length=100, default='company_name')
+    name = models.CharField(max_length=200, default='company_name')
     description = models.TextField(default='')
     city = models.CharField(max_length=50, default='company_city')
     address = models.TextField(default='company_address')

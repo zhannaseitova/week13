@@ -3,19 +3,19 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from api.models import Company, Vacancy
-from api.serializers import CompanySerializer2, VacancySerializer2
+from api.serializers import CompanySerializer, VacancySerializer
 
 
 @api_view(['GET', 'POST'])
 def company_list(request):
     if request.method == 'GET':
         companies = Company.objects.all()
-        serializer = CompanySerializer2(companies, many=True)
+        serializer = CompanySerializer(companies, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = CompanySerializer2(data=request.data)
+        serializer = CompanySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -31,11 +31,11 @@ def company_detail(request, company_id):
         return Response({'error': str(e)})
 
     if request.method == 'GET':
-        serializer = CompanySerializer2(company)
+        serializer = CompanySerializer(company)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = CompanySerializer2(instance=company, data=request.data)
+        serializer = CompanySerializer(instance=company, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -51,12 +51,12 @@ def company_detail(request, company_id):
 def vacancy_list(request):
     if request.method == 'GET':
         vacancies = Vacancy.objects.all()
-        serializer = VacancySerializer2(vacancies, many=True)
+        serializer = VacancySerializer(vacancies, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = VacancySerializer2(data=request.data)
+        serializer = VacancySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -72,11 +72,11 @@ def vacancy_detail(request, vacancy_id):
         return Response({'error': str(e)})
 
     if request.method == 'GET':
-        serializer = VacancySerializer2(vacancy)
+        serializer = VacancySerializer(vacancy)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = VacancySerializer2(instance=vacancy, data=request.data)
+        serializer = VacancySerializer(instance=vacancy, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
